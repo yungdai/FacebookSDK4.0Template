@@ -74,7 +74,7 @@ class ViewController: UIViewController {
                             }
                         })
                     } else {
-                        println("User logged in through Facebook WITH PERMISSIONS!")
+                        println("You are already a user, I'll just send you the main page")
                         self.performSegueWithIdentifier("mainPage", sender: nil)
                     }
                 }
