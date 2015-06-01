@@ -5,9 +5,15 @@
 #ifndef ParseStarterProject_Bridging_Header_h
 #define ParseStarterProject_Bridging_Header_h
 
-// If you are using Facebook, uncomment this line to get automatic import of the header inside your project.
+// Parse API
+#import <Parse/Parse.h>
+#import <Bolts/Bolts.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
+
+
+// Facebook API
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
+
 
 #endif

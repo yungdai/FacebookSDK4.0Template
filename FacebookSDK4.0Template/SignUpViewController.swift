@@ -13,43 +13,44 @@ class SignUpViewController: UIViewController {
 
     
     var user = PFUser.currentUser()
+    let permissions = ["public_profile", "email", "user_friends"]
+    @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var putSomethingHere: UITextField!
     
     @IBAction func signUpButton(sender: AnyObject) {
-
         
+        if let user = PFUser.currentUser() {
+            user["somethingHere"] = putSomethingHere.text
+            user.saveInBackground()
+        }
+        
+        // remember to do a PFUser
+        
+        self.performSegueWithIdentifier("goToMainApp", sender: nil)
+                
     }
-    @IBOutlet weak var profileImage: UIImageView!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        var FBSession = FBSDKAccessToken.currentAccessToken()
-        var accessToken = FBSession?.tokenString
-        let url = NSURL(string:"https://graph.facebook.com/me/picture?type=large&return_ssl_resources=1&access_token="+accessToken!)
-        let urlRequest = NSURLRequest(URL: url!)
-        NSURLConnection.sendAsynchronousRequest(urlRequest, queue: NSOperationQueue.mainQueue()) { (response, data, error) -> Void in
-            // print(data )
-            var dataObject = data
-            // convert the data and pass to image
-            let image = UIImage(data: data)
-            self.profileImage.image = image
-            self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width / 2;
-            self.profileImage.clipsToBounds = true
-            // save data to parse
-            var FBReqest:FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: nil)
-            FBReqest.startWithCompletionHandler({ (connection, result, error) -> Void in
-                if !(error != nil) {
-                    println("\(result)")
-                    self.user!["name"] = result["name"] as! String
-                    self.user!["gender"] = result["gender"] as! String
-                    self.user!["email"] = result["email"] as! String
-                    print(result["email"])
-                    self.user!.save()
-                }
-            })
+        if let currentUser = self.user,
+            let urlString = currentUser["photo"] as? String {
+                
+                
+                // parse the photo URL into data for the UIImageView
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), { () -> Void in
+                    let data = NSData(contentsOfURL: NSURL(string: urlString)!)
+                    dispatch_sync(dispatch_get_main_queue(), { () -> Void in
+                        self.profileImage.image = UIImage(data: data!)
+                    })
+                })
         }
-
     }
+    
+
+        
+        
+        // create extra boxes for extra information about your user if you like in this storyboard, then add them into this view controller to same the
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // described here: https://developers.facebook.com/docs/getting-started/facebook-sdk-for-ios/
         // Uncomment the line inside ParseStartProject-Bridging-Header and the following line here:
         // update from facebook initialize
-        PFFacebookUtils.initialize()
+        PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
         // ****************************************************************************
         
         PFUser.enableAutomaticUser()
@@ -75,8 +75,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             application.registerUserNotificationSettings(settings)
             application.registerForRemoteNotifications()
         } else {
-            let types = UIRemoteNotificationType.Badge | UIRemoteNotificationType.Alert | UIRemoteNotificationType.Sound
-            application.registerForRemoteNotificationTypes(types)
+            let types = UIUserNotificationType.Badge | UIUserNotificationType.Alert | UIUserNotificationType.Sound
+            application.registerForRemoteNotifications()
+            
+            // reveal the main app if you are a current user
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            if PFUser.currentUser()?.sessionToken != nil {
+                let revealVC = storyBoard.instantiateViewControllerWithIdentifier("mainScreen") as! UIViewController
+                self.window?.rootViewController = revealVC
+            } else {
+                self.window?.rootViewController = (storyBoard.instantiateInitialViewController() as! UIViewController)
+            }
         }
         
         return true
@@ -144,14 +153,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     }*/
     
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
-        //Even though the Facebook SDK can make this determinitaion on its own,
-        //let's make sure that the facebook SDK only sees urls intended for it,
-        //facebook has enough info already!
-        let isFacebookURL = url.scheme != nil && url.scheme!.hasPrefix("fb\(FBSDKSettings.appID())") && url.host == "authorize"
-        if isFacebookURL {
+    func application(application: UIApplication,
+        openURL url: NSURL,
+        sourceApplication: String?,
+        annotation: AnyObject?) -> Bool {
             return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
-        }
-        return false
+            //            return FBAppCall.handleOpenURL(url, sourceApplication:sourceApplication, session:PFFacebookUtils.session())
     }
+    
+
 }

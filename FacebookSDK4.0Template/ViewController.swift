@@ -17,50 +17,68 @@ class ViewController: UIViewController {
     @IBAction func facebookButton
         (sender: AnyObject) {
             self.errorMessage.alpha = 0
-            if FBSDKAccessToken.currentAccessToken() != nil {
-                //For debugging, when we want to ensure that facebook login always happens
-                FBSDKLoginManager().logOut()
-                //Otherwise do:
-                return
-            }
-            FBSDKLoginManager().logInWithReadPermissions(self.permissions, handler: { (result:FBSDKLoginManagerLoginResult!, error:NSError!) -> Void in
-                if error != nil {
-                    //According to Facebook:
-                    //Errors will rarely occur in the typical login flow because the login dialog
-                    //presented by Facebook via single sign on will guide the users to resolve any errors.
-                    FBSDKLoginManager().logOut()
-                    println("log out user")
-                    
-                } else if result.isCancelled {
-                    // Handle cancellations
-                    FBSDKLoginManager().logOut()
-                    self.errorMessage.alpha = 1
-                    print("user cancelled login process")
-                    
-                } else {
-                    // If you ask for multiple permissions at once, you
-                    // should check if specific permissions missing
-                    var allPermsGranted = true
-                    
-                    //result.grantedPermissions returns an array of _NSCFString pointers
-                    let perms = result.grantedPermissions as NSSet
-                    let grantedPermissions = perms.allObjects.map({$0})
-                    for permission in self.permissions {
-                        /*if !contains(grantedPermissions, permission) {
-                        allPermsGranted = false
-                        break
-                        }*/
-                        println("permission were granted ")
-                    }
-                    if allPermsGranted {
-                        // Do work
-                        let fbToken = result.token.tokenString
-                        let fbUserID = result.token.userID
-                        self.performSegueWithIdentifier("signUp", sender: self)
-                        NSLog("Do work section")
+            
+            PFFacebookUtils.logInInBackgroundWithReadPermissions(permissions as [AnyObject]) {
+                (user: PFUser?, error: NSError?) -> Void in
+                
+                if error != nil
+                {
+                    return;
+                }
+                if let parseUser = user {
+                    if parseUser.isNew {
+                        println("User signed up and logged in through Facebook!")
+                        let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "/me?fields=first_name,gender,email,name,picture.width(300).height(300)", parameters: nil)
+                        graphRequest.startWithCompletionHandler({
+                            (connection, result, error) -> Void in
+                            if (error != nil)
+                            {
+                                // display the error message
+                                println("Error: \(error)")
+                            } else {
+                                // parsing the facebook data from the graph API and saving it to parse
+                                // save the facebook name and email data to parseUser
+                                parseUser["name"] = result["name"]
+                                parseUser["email"] = result["email"]
+                                parseUser["first_name"] = result["first_name"]
+                                parseUser["gender"] = result["gender"]
+                                
+                                // test to make sure that the moreAboutMe column is empty before it's init
+                                if parseUser["moreAboutMe"] != nil {
+                                    println("didn't erase moreAboutme")
+                                } else {
+                                    parseUser["moreAboutMe"] = ""
+                                    println("moreAboutMe reset")
+                                }
+                                
+                                // sending the data to NSUserDefaults as well
+                                
+                                // sending the facebook picture to parse as a string
+                                if let pictureResult = result["picture"] as? NSDictionary,
+                                    pictureData = pictureResult["data"] as? NSDictionary,
+                                    picture = pictureData["url"] as? String {
+                                        parseUser["photo"] = picture
+                                        
+                                }
+                                
+                                // save the user's location to parse before you save the information
+                                PFGeoPoint.geoPointForCurrentLocationInBackground { (geoPoint:PFGeoPoint?, error:NSError?) -> Void in
+                                    if let user = PFUser.currentUser() {
+                                        user["currentLocation"] = geoPoint
+                                        user.saveInBackground()
+                                    }
+                                }
+                                parseUser.saveInBackground()
+                                println("Parse User Saved")
+                                self.performSegueWithIdentifier("signUp", sender: nil)
+                            }
+                        })
+                    } else {
+                        println("User logged in through Facebook WITH PERMISSIONS!")
+                        self.performSegueWithIdentifier("mainPage", sender: nil)
                     }
                 }
-            })
+            }
     }
     
     
