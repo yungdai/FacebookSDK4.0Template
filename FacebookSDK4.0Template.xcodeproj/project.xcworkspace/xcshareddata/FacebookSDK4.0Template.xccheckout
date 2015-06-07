@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>11DD9E43-FF83-479F-A7C7-57BB85C05365</string>
 	<key>IDESourceControlProjectName</key>
-	<string>FacebookSDK4.0Template</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>C0F4DB3E12C6441D24E11BC11B2A6DC6D0C5779B</key>
 		<string>https://github.com/yungdai/FacebookSDK4.0Template.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>FacebookSDK4.0Template.xcodeproj</string>
+	<string>FacebookSDK4.0Template.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>C0F4DB3E12C6441D24E11BC11B2A6DC6D0C5779B</key>
