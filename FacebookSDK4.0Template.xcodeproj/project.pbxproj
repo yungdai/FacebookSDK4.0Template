@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1A6905C51B1CE8E000BD1C5C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A6905C41B1CE8E000BD1C5C /* SystemConfiguration.framework */; };
-		1A6E8AAD1B1CCFB200D68A76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6E8AAC1B1CCFB200D68A76 /* AppDelegate.swift */; };
 		1A6E8AAF1B1CCFB200D68A76 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6E8AAE1B1CCFB200D68A76 /* ViewController.swift */; };
 		1A6E8AB21B1CCFB200D68A76 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A6E8AB01B1CCFB200D68A76 /* Main.storyboard */; };
 		1A6E8AB41B1CCFB200D68A76 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A6E8AB31B1CCFB200D68A76 /* Images.xcassets */; };
@@ -43,7 +42,6 @@
 		1A6905C41B1CE8E000BD1C5C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1A6E8AA71B1CCFB200D68A76 /* FacebookSDK4.0Template.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FacebookSDK4.0Template.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A6E8AAB1B1CCFB200D68A76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1A6E8AAC1B1CCFB200D68A76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1A6E8AAE1B1CCFB200D68A76 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1A6E8AB11B1CCFB200D68A76 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1A6E8AB31B1CCFB200D68A76 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -121,7 +119,6 @@
 			children = (
 				1A6E8AED1B1CD46900D68A76 /* Frameworks */,
 				1A6E8AF01B1CD83A00D68A76 /* Controllers */,
-				1A6E8AAC1B1CCFB200D68A76 /* AppDelegate.swift */,
 				1A6E8AB01B1CCFB200D68A76 /* Main.storyboard */,
 				1A6E8AB31B1CCFB200D68A76 /* Images.xcassets */,
 				1A6E8AB51B1CCFB200D68A76 /* LaunchScreen.xib */,
@@ -289,7 +286,6 @@
 			files = (
 				1A6E8AEF1B1CD83400D68A76 /* SignUpViewController.swift in Sources */,
 				1A6E8AAF1B1CCFB200D68A76 /* ViewController.swift in Sources */,
-				1A6E8AAD1B1CCFB200D68A76 /* AppDelegate.swift in Sources */,
 				1A6E8AF21B1CD85500D68A76 /* MainAppViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
