@@ -13,7 +13,7 @@ class MainAppViewController: UIViewController {
     @IBAction func logoutButtonPressed(sender: AnyObject) {
         
         PFUser.logOut()
-        println("Parse User Logged Out")
+        print("Parse User Logged Out")
         self.performSegueWithIdentifier("goToLogin", sender: nil)
     }
     override func viewDidLoad() {
