@@ -9,6 +9,7 @@
 #import <Parse/Parse.h>
 #import <Bolts/Bolts.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
+#import <ParseFacebookUtilsV4/ParseFacebookUtilsV4.h>
 
 
 // Facebook API

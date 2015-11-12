@@ -18,7 +18,7 @@ class ViewController: UIViewController {
         (sender: AnyObject) {
             self.errorMessage.alpha = 0
             
-            PFFacebookUtils.logInInBackgroundWithReadPermissions(permissions as [AnyObject]) {
+            PFFacebookUtils.logInInBackgroundWithReadPermissions(permissions as [String]) {
                 (user: PFUser?, error: NSError?) -> Void in
                 
                 if error != nil

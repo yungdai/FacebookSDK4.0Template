@@ -42,6 +42,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // described here: https://developers.facebook.com/docs/getting-started/facebook-sdk-for-ios/
         // Uncomment the line inside ParseStartProject-Bridging-Header and the following line here:
         // update from facebook initialize
+        
+        
+        
         PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
         // ****************************************************************************
         
@@ -84,7 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let revealVC = storyBoard.instantiateViewControllerWithIdentifier("mainScreen") 
                 self.window?.rootViewController = revealVC
             } else {
-                self.window?.rootViewController = (storyBoard.instantiateInitialViewController() as! UIViewController)
+                self.window?.rootViewController = (storyBoard.instantiateInitialViewController() as UIViewController?)
             }
         }
         
@@ -141,15 +144,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Uncomment this method if you are using Facebook
     ///////////////////////////////////////////////////////////
     /*func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
-    //  return FBAppCall.handleOpenURL(url, sourceApplication:sourceApplication, withSession:PFFacebookUtils.session())
+      return FBAppCall.handleOpenURL(url, sourceApplication:sourceApplication, withSession:PFFacebookUtils.session())
     return FBSDKApplicationDelegate.sharedInstance().application( application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
     }*/
     /*func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [String: AnyObject]?) -> Bool {
-    //App launch code
+    App launch code
     FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-    //Optionally add to ensure your credentials are valid:
+    Optionally add to ensure your credentials are valid:
     FBSDKLoginManager.renewSystemCredentials { (result:ACAccountCredentialRenewResult, error:NSError!) -> Void in
-    //
+    
     }
     }*/
     
@@ -162,4 +165,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
 
-}
+
